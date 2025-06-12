@@ -20,7 +20,6 @@ class Route
             $actionName = strtolower($_GET['action']);
         }
         $controllerClass = 'app\controllers\\' . ucfirst($controllerName) . 'Controller';
-        var_dump($controllerClass);
         if(!class_exists($controllerClass)){
             self::notFound();
         }
