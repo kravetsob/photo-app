@@ -20,7 +20,6 @@ class Route
             $actionName = strtolower($_GET['action']);
         }
         $controllerClass = 'app\controllers\\' . ucfirst($controllerName) . 'Controller';
-        var_dump($controllerClass);
         if(!class_exists($controllerClass)){
             self::notFound();
         }
@@ -63,5 +62,6 @@ class Route
     static public function redirect(string $url = null) : never
     {
         header('Location: ' . $url ?? '/');
+
     }
 }
