@@ -35,8 +35,7 @@ class View
      */
     protected function getViewsDir() : string
     {
-       // return 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
-        return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
+        return '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
     }
 
     /**
