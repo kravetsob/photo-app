@@ -6,7 +6,7 @@
         <input type="submit" value="Like">
     </form>
 </div>
-<div class="add-photo"><a href="<?= \app\core\Route::url('photocontroller', 'upload')?>">Add Photo</a></div>
+<div class="add-photo"><a href="<?= \app\core\Route::url('photo', 'upload')?>">Add Photo</a></div>
 <div class="pagination">
     <a href="#">&laquo;</a>
     <a href="#">1</a>
