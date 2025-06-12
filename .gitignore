@@ -1,5 +1,5 @@
 /.idea/
 .history
 .vscode
-app/config.php
+app/cred.php
 test.php
