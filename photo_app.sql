@@ -1,0 +1,11 @@
+-- Active: 1748012938470@@127.0.0.1@3306@project2805
+CREATE DATABASE IF NOT EXISTS photo_app;
+
+USE photo_app;
+
+CREATE TABLE
+    IF NOT EXISTS photos (
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        path VARCHAR(255) NOT NULL UNIQUE,
+        likes BIGINT UNSIGNED
+    );

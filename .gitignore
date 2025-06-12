@@ -1,1 +1,5 @@
 /.idea/
+.history
+.vscode
+app/config.php
+test.php
