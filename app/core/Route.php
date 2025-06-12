@@ -62,5 +62,6 @@ class Route
     static public function redirect(string $url = null) : never
     {
         header('Location: ' . $url ?? '/');
+
     }
 }
