@@ -67,6 +67,7 @@ class LikeController
      */
     public function like(int $imageId): void
     {
+        //imageId через GET/POST ?
         $this->model->addLike($imageId);
         Route::redirect(Route::url('likes')); // або на іншу сторінку
     }
