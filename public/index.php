@@ -1,2 +1,2 @@
 <?php
-include_once 'app/bootstrap.php';
+include_once '..' . DIRECTORY_SEPARATOR . 'app/bootstrap.php';
