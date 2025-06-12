@@ -3,7 +3,7 @@ namespace app\core;
 
 class Route
 {
-    const DEFAULT_CONTROLLER = 'Photo';
+    const DEFAULT_CONTROLLER = 'photo';
     const DEFAULT_ACTION = 'index';
 
     /**
