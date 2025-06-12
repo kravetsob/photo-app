@@ -15,4 +15,11 @@ class PhotoController
             'title' => 'Home',
         ]);
     }
+
+    public function upload()
+    {
+        $this->view->render('index_upload', [
+            'title' => 'Upload',
+        ]);
+    }
 }
