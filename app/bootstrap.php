@@ -1,6 +1,7 @@
 <?php
 
-include_once '..' . DIRECTORY_SEPARATOR . 'config.php';
+//include_once '..' . DIRECTORY_SEPARATOR . 'config.php';
+include_once (__DIR__ . '/config.php');
 
 spl_autoload_register(function ($className){
     $classPath = '../' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
