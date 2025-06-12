@@ -12,12 +12,12 @@
         <header>
             <nav>
                 <ul>
-                    <li><a>Home</a></li>
+                    <li><a href="<?= \app\core\Route::url()?>">Home</a></li>
                 </ul>
             </nav>
         </header>
         <main>
-<!--           TODO include_once-->
+            <?php include_once $this->getViewPath($viewName);?>
         </main>
         <footer>JanTeam &copy;2025</footer>
     </body>
