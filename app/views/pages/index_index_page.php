@@ -1,6 +1,6 @@
 <?php foreach ($photos as $photo):?>
     <div class="photo">
-        <p><?= $photo['id']?></p>
+        <div class="id"><?= $photo['id']?></div>
         <img src="<?= $photo['path']?>" alt="img_name">
     </div>
 
@@ -13,7 +13,7 @@
     </div>
 <?php endforeach;?>
 
-<div class="add-photo"><a href="<?= \app\core\Route::url('photo', 'upload')?>">Add Photo</a></div>
+<div class="add-photo"><a href="<?= \app\core\Route::url('photo', 'upload')?>">+</a></div>
 
 <div class="pagination">
     <?php if ($prevPage > 0): ?>

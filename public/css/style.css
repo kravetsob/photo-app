@@ -1,69 +1,142 @@
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: #ffc300 solid 1px;
 }
-header, main, footer{
+header, main, footer {
     width: 70%;
 }
-header{
-    border: #000000 solid 1px;
-}
-main{
-    border: #ff0000 solid 1px;
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-footer{
-    border: #7bff00 solid 1px;
+footer {
     text-align: center;
 }
-.photo{
-    height: 200px;
-    width: 50%;
-    border: #6d784a solid 1px;
+.photo {
+    width: 380px;
+    height: 380px;
+    margin: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    text-align: center;
 }
-.photo>img{
-    height: 150px;
-    /*width: 50%;*/
-    border: #6d784a solid 1px;
+.photo > img {
+    width: 350px;
+    height: 350px;
 }
-ul{
+.id{
+    display: none;
+    height: 0;
+}
+ul {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-li{
+li {
     list-style-type: none;
 }
-li>a{
+li > a {
     text-decoration: none;
     color: #000000;
     text-align: center;
 }
-.likes{
-    border: #d93833 solid 1px;
-    height: 50px;
-    width: 50%;
+.likes {
+    width: 380px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    background-color: #ffffff;
+    height: 40px;
 }
-.add-photo{
-    width: 50px;
-    height: 50px;
-    border: #000000 solid 1px;
+.likes form {
+    margin: 0;
+}
+.likes input[type="submit"] {
+    background: none;
+    border: none;
+    color: #3498db;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+}
+.add-photo {
+    width: 60px;
+    height: 60px;
     position: sticky;
-    align-self: self-end;
+    align-self: flex-end;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cccccc;
+}
+.add-photo a {
+    color: #000000;
+    text-decoration: none;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
 }
 .pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 .pagination a {
     color: black;
-    float: left;
     padding: 8px 16px;
     text-decoration: none;
     border: 1px solid #000000;
+    margin: 2px;
+}
+.active {
+    background-color: #97b8ff;
+}
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+input[type="file"] {
+    margin-bottom: 15px;
+}
+.upload input[type="submit"] {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+.errors {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #e74c3c;
+    background-color: #fdecea;
+    color: #e74c3c;
+    border-radius: 4px;
+    display: none;
+}
+.errors p {
+    margin: 0;
+    font-weight: bold;
 }
