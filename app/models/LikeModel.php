@@ -29,21 +29,19 @@
 //
 //}
 
-
 namespace app\models;
-
-use mysqli;
+use app\core\Database;
 
 class LikeModel
 {
-    private mysqli $db;
+    private $db;
 
     /**
      * Встановлює з'єднання з базою даних.
      */
     public function __construct()
     {
-        $this->db = new mysqli("localhost", "root", "", "our_db_name");
+        $this->db = Database::getInstance();
     }
 
     /**
@@ -53,11 +51,13 @@ class LikeModel
      */
     public function getLikes(int $imageId): int
     {
-        $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM likes WHERE imageId = ?");
-        $stmt->bind_param("i", $imageId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc()['count'] ?? 0;
+        $result = $this->db->query(
+            "SELECT likes FROM photos WHERE id = ?",
+            "i",
+            [$imageId]
+        );
+        $likes = $result[0]['likes'] ?? 0;
+        return $likes;
     }
 
     /**
@@ -67,25 +67,11 @@ class LikeModel
      */
     public function addLike(int $imageId): void
     {
-        $stmt = $this->db->prepare("INSERT INTO likes (imageId) VALUES (?)");
-        $stmt->bind_param("i", $imageId);
-        $stmt->execute();
-    }
-
-    /**
-     * Отримати всі лайки (масив: image_id => count)
-     * @return array
-     */
-    public function allLikes(): array
-    {
-        $likes = [];
-        $result = $this->db->query("SELECT imageId, COUNT(*) as count FROM likes GROUP BY imageId"); // підраховує кількість лайків, у яких image_id однаковий.
-        if ($result) {
-            while ($row = $result->fetch_assoc()) {
-                $likes[$row['imageId']] = $row['count'];
-            }
-        }
-        return $likes;
+        $this->db->query(
+            'UPDATE photos SET likes = likes + 1 WHERE id = ?',
+            'i',
+            [$imageId]
+        );
     }
 }
 

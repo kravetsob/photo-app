@@ -3,3 +3,4 @@
 .vscode
 app/cred.php
 test.php
+public/storage/*

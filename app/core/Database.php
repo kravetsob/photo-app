@@ -4,11 +4,18 @@ namespace app\core;
 
 use mysqli;
 
+/**
+ * Database MYSQLI Singleton
+ */
 class Database
 {
     protected static $instance = null;
-    protected $connector;
+    protected mysqli $connector;
 
+    /**
+     * Returns a reference to the Database object
+     * @return Database
+     */
     public static function getInstance(): Database
     {
         if (is_null(self::$instance)) {
@@ -37,20 +44,37 @@ class Database
     }
 
     /**
-     * Метод повертає список асоціативних масивів при вибираючих запитах, або bool при невибираючих запитах
-     * @param mixed $query
-     * @return array<array|bool|null>|bool
+     * Метод повертає список асоціативних масивів при вибираючих запитах, або bool при невибираючих
+     * types i-int, d-float, s-string
+     * @param string $query
+     * @param string $types
+     * @param array $params
+     * @return array|bool
      */
-    public function query($query): array|bool
+    public function query(string $query, string $types = '', array $params = []): array|bool
     {
-        $result = $this->connector->query($query);
-        if (is_bool($result)) {
-            return $result;
+        $stmt = $this->connector->prepare($query);
+        if ($params) {
+            $stmt->bind_param($types, ...$params);
         }
-        $data = [];
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
+
+        $status = $stmt->execute();
+        if (!$status) {
+            exit('Query error ' . $stmt->error);
         }
-        return $data;
+
+        $result = $stmt->get_result();
+        if ($result instanceof \mysqli_result) {
+            if ($result->num_rows === 0) {
+                return [];
+            } else {
+                $data = $result->fetch_all(MYSQLI_ASSOC);
+                $stmt->close();
+                return $data;
+            }
+        }
+
+        $stmt->close();
+        return true;
     }
 }
