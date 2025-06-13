@@ -12,9 +12,11 @@ class PhotoModel
     {
         $this->db = Database::getInstance();
     }
+
     /**
-     * Получения всех фото
-     * 
+     * Returns paginated list of photos count of five
+     * @param int $page
+     * @return array|bool
      */
     public function all(int $page): array|bool
     {
@@ -26,7 +28,11 @@ class PhotoModel
         return $result;
     }
 
-    public function count()
+    /**
+     * Returns the total number of photos
+     * @return int
+     */
+    public function count() : int
     {
         $result = $this->db->query('SELECT COUNT(id) as totalCount FROM photos');
         if ($result === false) {
@@ -36,8 +42,9 @@ class PhotoModel
     }
 
     /**
-     * Сохранения фото
-     * 
+     * Saves the path to the photo
+     * @param string $path
+     * @return void
      */
     public function upload(string $path): void
     {
