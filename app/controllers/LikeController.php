@@ -50,25 +50,27 @@ class LikeController
      * Показати всі лайки
      * @return void
      */
-    public function index(): void
-    {
-        $likes = $this->model->allLikes();
-
-        $this->view->render('likes_index', [
-            'title' => 'Likes Page',
-            'likes' => $likes,
-        ]);
-    }
+//    public function index(): void
+//    {
+//        $likes = $this->model->getLikes($id);
+//        $this->view->render('index_index', [
+//            'title' => 'Home',
+//           'likes' => $likes,
+//        ]);
+//    }
 
     /**
      * Додати лайк до картинки
      * @param int $imageId
      * @return void
      */
-    public function like(int $imageId): void
+    public function like(): void
     {
-        //imageId через GET/POST ?
-        $this->model->addLike($imageId);
-        Route::redirect(Route::url('likes')); // або на іншу сторінку
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $imageId = $_POST['imageId'];
+            $this->model->add($imageId);
+           Route::redirect(Route::url('photo', 'index')); // або на іншу сторінку
+        }
     }
 }
