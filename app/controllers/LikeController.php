@@ -70,7 +70,7 @@ class LikeController
         {
             $imageId = $_POST['imageId'];
             $this->model->add($imageId);
-           Route::redirect(Route::url('photo', 'index')); // або на іншу сторінку
+            Route::redirect(Route::url('photo', 'index')); // або на іншу сторінку
         }
     }
 }

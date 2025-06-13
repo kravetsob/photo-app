@@ -1,12 +1,20 @@
-<div class="photo">Photo</div>
-<div class="likes">
-    <img src="" alt="heart"/>Likes
-    <form action="#" method="post">
-        <input type="hidden" name="imageId" value="id">
-        <input type="submit" value="Like">
-    </form>
-</div>
+<?php foreach ($photos as $photo):?>
+    <div class="photo">
+        <p><?= $photo['id']?></p>
+        <img src="<?= $photo['path']?>" alt="img_name">
+    </div>
+
+    <div class="likes">
+        <div><?= $photo['likes']?></div>
+        <form action="<?=\app\core\Route::url('like', 'like')?>" method="post">
+            <input type="hidden" name="imageId" value="<?= $photo['id']?>">
+            <input type="submit" value="Like">
+        </form>
+    </div>
+<?php endforeach;?>
+
 <div class="add-photo"><a href="<?= \app\core\Route::url('photo', 'upload')?>">Add Photo</a></div>
+
 <div class="pagination">
     <a href="#">&laquo;</a>
     <a href="#">1</a>

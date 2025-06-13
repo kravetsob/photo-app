@@ -65,7 +65,7 @@ class LikeModel
      * @param int $imageId
      * @return void
      */
-    public function addLike(int $imageId): void
+    public function add(int $imageId): void
     {
         $this->db->query(
             'UPDATE photos SET likes = likes + 1 WHERE id = ?',

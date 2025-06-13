@@ -21,8 +21,13 @@ footer{
     text-align: center;
 }
 .photo{
-    height: 500px;
+    height: 200px;
     width: 50%;
+    border: #6d784a solid 1px;
+}
+.photo>img{
+    height: 150px;
+    /*width: 50%;*/
     border: #6d784a solid 1px;
 }
 ul{
