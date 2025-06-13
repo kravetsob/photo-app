@@ -16,13 +16,23 @@ class PhotoModel
      * Получения всех фото
      * 
      */
-    public function all(): array|bool
+    public function all(int $page): array|bool
     {
-        $result = $this->db->query('SELECT id, path, likes FROM photos');
+        $offset = ($page - 1) * IMG_LIMIT;
+        $result = $this->db->query('SELECT id, path, likes FROM photos ORDER BY id LIMIT ? OFFSET ?', 'ii', [IMG_LIMIT, $offset]);
         if ($result === false) {
             exit('ошибка получения фото');
         }
         return $result;
+    }
+
+    public function count()
+    {
+        $result = $this->db->query('SELECT COUNT(id) as totalCount FROM photos');
+        if ($result === false) {
+            exit('помилка підрахунку кількості');
+        }
+        return $result[0]['totalCount'];
     }
 
     /**
