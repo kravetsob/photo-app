@@ -8,7 +8,7 @@ class PhotoModel
 {
 
     protected $db;
-    private function __construct()
+    public function __construct()
     {
         $this->db = Database::getInstance();
     }
@@ -16,9 +16,9 @@ class PhotoModel
      * Получения всех фото
      * 
      */
-    public function allPhoto(): array|bool
+    public function all(): array|bool
     {
-        $result = $this->db->query('SELECT * FROM photos');
+        $result = $this->db->query('SELECT id, path, likes FROM photos');
         if ($result === false) {
             exit('ошибка получения фото');
         }
