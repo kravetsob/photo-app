@@ -15,10 +15,20 @@ class PhotoController
     }
     public function index()
     {
-        $photos = $this->photoModel->all();
+        $page = ($_GET['page']) ?? 1;
+        $nextPage = $page + 1;
+        $prevPage = $page - 1;
+        $rowCount = $this->photoModel->count();
+        $pageCount = ceil($rowCount/ IMG_LIMIT);
+
+        $photos = $this->photoModel->all($page);
         $this->view->render('index_index', [
             'title' => 'Home',
             'photos' => $photos,
+            'page' => $page,
+            'pageCount' => $pageCount,
+            'prevPage' => $prevPage,
+            'nextPage' => $nextPage,
         ]);
     }
 
