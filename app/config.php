@@ -1,6 +1,7 @@
 <?php
 const SITE_NAME = 'Site Name';
-const PHOTO_UPLOAD_DIR = 'public' . DIRECTORY_SEPARATOR . 'storage';
+const PHOTO_UPLOAD_DIR = __DIR__ . '/../public/storage';
+const PHOTO_UPLOAD_URL = 'storage/';
 const PHOTO_AVAILABLE_TYPES = [
     'image/jpg',
     'image/jpeg',
