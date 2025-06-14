@@ -1,33 +1,4 @@
 <?php
-//
-//namespace app\controllers;
-//
-//use app\core\View;
-//use app\core\Route;
-//use app\models\LikeModel;
-//class LikeController
-//{
-//    public function __construct()
-//    {
-//        $this->view = new View();
-//        $this->model = new LikeModel();
-//    }
-//    public function index() : void
-//    {
-//        $this->view->render('index_index', [
-//            'title' => 'Likes',
-//            'likes' => $this->model->all(),
-//        ]);
-//    }
-//    public function create() : void
-//    {
-//        $this->view->render('index_create', [
-//            'title' => 'Create new like',
-//        ]);
-//        Route::redirect(Route::url('task'));
-//    }
-//}
-
 
 namespace app\controllers;
 
@@ -37,30 +8,16 @@ use app\models\LikeModel;
 
 class LikeController
 {
-    private LikeModel $model; //буде містити об'єкт моделі LikeModel, який виконує запити до БД.
-    private View $view; //буде використовуватися для відображення HTML-сторінок.
+    private LikeModel $model; //will contain a LikeModel object that performs queries to the database.
+    private View $view; //will be used to display HTML pages.
 
     public function __construct()
     {
         $this->model = new LikeModel();
         $this->view = new View();
     }
-
     /**
-     * Показати всі лайки
-     * @return void
-     */
-//    public function index(): void
-//    {
-//        $likes = $this->model->getLikes($id);
-//        $this->view->render('index_index', [
-//            'title' => 'Home',
-//           'likes' => $likes,
-//        ]);
-//    }
-
-    /**
-     * Додати лайк до картинки
+     * Add a like to the photo
      * @param int $imageId
      * @return void
      */
@@ -70,7 +27,7 @@ class LikeController
         {
             $imageId = $_POST['imageId'];
             $this->model->add($imageId);
-            Route::redirect(Route::url('photo', 'index')); // або на іншу сторінку
+            Route::redirect(Page::currentPage());
         }
     }
 }

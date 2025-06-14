@@ -3,15 +3,19 @@
 namespace app\controllers;
 use app\core\View;
 use app\core\Route;
+//TODO Винести функціонал Page з Index і прибрати PhotoModel
 use app\models\PhotoModel;
+use app\services\PhotoService;
 
 class PhotoController
 {
     protected $view;
     protected $photoModel;
+    protected $photoService;
     public function __construct(){
         $this->view = new View();
         $this->photoModel = new PhotoModel();
+        $this->photoService = new PhotoService();
     }
     public function index()
     {
@@ -32,13 +36,12 @@ class PhotoController
         ]);
     }
 
-    public function upload()
+    public function upload(): void
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            $img = $_FILES['image'];
-            $imgPath = PHOTO_UPLOAD_DIR . '/'. $img['name'];
-            $this->photoModel->upload($imgPath);
+            $this->photoService->upload($_FILES['image']);
+            //TODO повернутися на завантажене зображення
             Route::redirect(Route::url('photo'));
         }
 

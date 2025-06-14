@@ -1,51 +1,13 @@
 <?php
-//
-//namespace app\models;
-//
-////use app\controllers;
-//use mysqli;
-//
-//class LikeModel
-//{
-//    public function all(): array
-//    {
-//        $likes = [];
-//        $result = $this->db->query("SELECT * FROM likes");
-//
-//        if ($result) {
-//            while ($like = $result->fetch_assoc()) {
-//                $likes[] = $like;
-//            }
-//        }
-//
-//        return $likes;
-//    }
-//    public function add(int $id): void
-//    {
-//        $stmt = $this->db->prepare("INSERT INTO likes ($id) VALUES (?)");
-//        $stmt->bind_param("i", $id);
-//        $stmt->execute();
-//    }
-//
-//}
 
 namespace app\models;
 use app\core\Database;
 
-class LikeModel
+
+class LikeModel extends BaseModel
 {
-    private $db;
-
     /**
-     * Встановлює з'єднання з базою даних.
-     */
-    public function __construct()
-    {
-        $this->db = Database::getInstance();
-    }
-
-    /**
-     * Отримати кількість лайків по ID картинки
+     *Get the number of likes by photo ID
      * @param int $imageId
      * @return int
      */
@@ -59,9 +21,8 @@ class LikeModel
         $likes = $result[0]['likes'] ?? 0;
         return $likes;
     }
-
     /**
-     * Додати лайк до картинки
+     * Add a like to the photo
      * @param int $imageId
      * @return void
      */

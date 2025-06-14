@@ -4,17 +4,12 @@ namespace app\models;
 
 use app\core\Database;
 
-class PhotoModel
+class PhotoModel extends BaseModel
 {
-
-    protected $db;
-    public function __construct()
-    {
-        $this->db = Database::getInstance();
-    }
     /**
-     * Получения всех фото
-     * 
+     * Returns paginated list of photos count of five
+     * @param int $page
+     * @return array|bool
      */
     public function all(int $page): array|bool
     {
@@ -26,7 +21,11 @@ class PhotoModel
         return $result;
     }
 
-    public function count()
+    /**
+     * Returns the total number of photos
+     * @return int
+     */
+    public function count() : int
     {
         $result = $this->db->query('SELECT COUNT(id) as totalCount FROM photos');
         if ($result === false) {
@@ -36,15 +35,16 @@ class PhotoModel
     }
 
     /**
-     * Сохранения фото
-     * 
+     * Saves the path to the photo
+     * @param string $name
+     * @return void
      */
-    public function upload(string $path): void
+    public function upload(string $name): void
     {
         $result = $this->db->query(
-            'INSERT INTO photos (path) VALUES (?)',
+            'INSERT INTO photos (name) VALUES (?)',
             's',
-            [$path]
+            [$name]
         );
         if ($result === false) {
             exit('ошибка сохранения фото');
