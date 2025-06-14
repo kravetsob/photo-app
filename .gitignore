@@ -1,6 +1,6 @@
 /.idea/
 .history
 .vscode
-app/cred.php
+app/cred.php.example
 test.php
 public/storage/*
