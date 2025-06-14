@@ -4,15 +4,8 @@ namespace app\models;
 
 use app\core\Database;
 
-class PhotoModel
+class PhotoModel extends BaseModel
 {
-
-    protected $db;
-    public function __construct()
-    {
-        $this->db = Database::getInstance();
-    }
-
     /**
      * Returns paginated list of photos count of five
      * @param int $page
@@ -43,15 +36,15 @@ class PhotoModel
 
     /**
      * Saves the path to the photo
-     * @param string $path
+     * @param string $name
      * @return void
      */
-    public function upload(string $path): void
+    public function upload(string $name): void
     {
         $result = $this->db->query(
-            'INSERT INTO photos (path) VALUES (?)',
+            'INSERT INTO photos (name) VALUES (?)',
             's',
-            [$path]
+            [$name]
         );
         if ($result === false) {
             exit('ошибка сохранения фото');

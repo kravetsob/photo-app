@@ -4,17 +4,8 @@ namespace app\models;
 use app\core\Database;
 
 
-class LikeModel
+class LikeModel extends BaseModel
 {
-    private $db;
-
-    /**
-     * Establishes a connection to the database.
-     */
-    public function __construct()
-    {
-        $this->db = Database::getInstance();
-    }
     /**
      *Get the number of likes by photo ID
      * @param int $imageId
