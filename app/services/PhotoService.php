@@ -18,7 +18,7 @@ class PhotoService {
 
         //Збереження на диск
         $newName = uniqid() . '_' . basename($file['name']);
-        move_uploaded_file($file['tmp'],  PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName);
+        move_uploaded_file($file['tmp_name'],  PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName);
 
         $this->photoModel->upload($newName);
     }
