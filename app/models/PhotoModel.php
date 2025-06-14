@@ -14,7 +14,7 @@ class PhotoModel extends BaseModel
     public function all(int $page): array|bool
     {
         $offset = ($page - 1) * IMG_LIMIT;
-        $result = $this->db->query('SELECT id, path, likes FROM photos ORDER BY id LIMIT ? OFFSET ?', 'ii', [IMG_LIMIT, $offset]);
+        $result = $this->db->query('SELECT id, name, likes FROM photos ORDER BY id LIMIT ? OFFSET ?', 'ii', [IMG_LIMIT, $offset]);
         if ($result === false) {
             exit('ошибка получения фото');
         }
