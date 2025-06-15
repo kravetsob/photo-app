@@ -29,7 +29,7 @@ class LikeModel extends BaseModel
     public function add(int $imageId): void
     {
         $this->db->query(
-            'UPDATE photos SET likes = likes + 1 WHERE id = ?',
+            'UPDATE photos SET likes = COALESCE(likes, 0) + 1 WHERE id = ?',
             'i',
             [$imageId]
         );
