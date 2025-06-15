@@ -9,14 +9,35 @@ use app\services\PhotoService;
 
 class PhotoController
 {
+    /**
+     * @var View
+     */
     protected $view;
+
+    /**
+     * @var PhotoModel
+     */
     protected $photoModel;
+
+    /**
+     * @var PhotoService
+     */
     protected $photoService;
-    public function __construct(){
+
+    /**
+     * PhotoController constructor
+     */
+    public function __construct()
+    {
         $this->view = new View();
         $this->photoModel = new PhotoModel();
         $this->photoService = new PhotoService();
     }
+
+    /**
+     * Displays the homepage with a paginated list of photos.
+     * @return void
+     */
     public function index()
     {
         $page = ($_GET['page']) ?? 1;
@@ -36,6 +57,10 @@ class PhotoController
         ]);
     }
 
+    /**
+     * Handles image upload requests.
+     * @return void
+     */
     public function upload(): void
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST')

@@ -7,6 +7,7 @@ class Route
     const DEFAULT_ACTION = 'index';
 
     /**
+     * Routing
      * @return void
      */
     static public function init() : void
@@ -31,8 +32,10 @@ class Route
     }
 
     /**
+     * Generates a URL
      * @param string $controller
      * @param string $action
+     * @param array $params
      * @return string
      */
     static public function url(string $controller = self::DEFAULT_CONTROLLER, string $action = self::DEFAULT_ACTION, array $params = []) : string
@@ -45,7 +48,7 @@ class Route
     }
 
     /**
-     *
+     * Sends a 404 response and stops script execution
      * @return never
      */
     static public function notFound() : never

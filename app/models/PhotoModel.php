@@ -16,7 +16,7 @@ class PhotoModel extends BaseModel
         $offset = ($page - 1) * IMG_LIMIT;
         $result = $this->db->query('SELECT id, name, likes FROM photos ORDER BY id LIMIT ? OFFSET ?', 'ii', [IMG_LIMIT, $offset]);
         if ($result === false) {
-            exit('ошибка получения фото');
+            exit('помилка отримання фото');
         }
         return $result;
     }
@@ -47,7 +47,7 @@ class PhotoModel extends BaseModel
             [$name]
         );
         if ($result === false) {
-            exit('ошибка сохранения фото');
+            exit('ошибка збереження фото');
         }
     }
 

@@ -4,14 +4,26 @@ namespace app\services;
 
 use app\models\PhotoModel;
 
-class PhotoService {
+class PhotoService
+{
+    /**
+     * @var PhotoModel
+     */
     protected PhotoModel $photoModel;
 
+    /**
+     * PhotoService constructor
+     */
     public function __construct()
     {
         $this->photoModel = new PhotoModel();
     }
 
+    /**
+     * Uploads an image file to the server and saves its name to the database
+     * @param array $file
+     * @return void
+     */
     public function upload(array $file)     
     {
         //TODO Validation

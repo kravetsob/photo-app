@@ -9,7 +9,14 @@ use mysqli;
  */
 class Database
 {
+    /**
+     * @var null
+     */
     protected static $instance = null;
+
+    /**
+     * @var mysqli
+     */
     protected mysqli $connector;
 
     /**
@@ -24,6 +31,9 @@ class Database
         return self::$instance;
     }
 
+    /**
+     * Database constructor
+     */
     private function __construct()
     {
         $this->connector = new mysqli(
@@ -34,10 +44,18 @@ class Database
         );
     }
 
+    /**
+     * Prevents cloning of the singleton instance
+     * @return void
+     */
     private function __clone(): void
     {
     }
 
+    /**
+     * Prevents unserializing of the singleton instance
+     * @return never
+     */
     public function __wakeup(): never
     {
         exit('Singleton');

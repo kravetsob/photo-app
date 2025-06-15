@@ -21,6 +21,7 @@ class LikeModel extends BaseModel
         $likes = $result[0]['likes'] ?? 0;
         return $likes;
     }
+
     /**
      * Add a like to the photo
      * @param int $imageId
