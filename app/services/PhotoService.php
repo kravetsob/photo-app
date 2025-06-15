@@ -17,10 +17,10 @@ class PhotoService {
     {
         //TODO Validation
         if ($file['size'] === 0) {
-            return FILE_UPLOAD_ERR[24];
+            return FILE_UPLOAD_ERR[9];
         }
         if (!in_array($file['type'], PHOTO_AVAILABLE_TYPES, true)){
-            return FILE_UPLOAD_ERR[25];
+            return FILE_UPLOAD_ERR[10];
         }
 
 // 2. Перевірка розміру вручну
