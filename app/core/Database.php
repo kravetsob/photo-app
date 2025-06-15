@@ -38,7 +38,7 @@ class Database
     {
     }
 
-    public function __wakeup(): never
+    public function __wakeup(): void
     {
         exit('Singleton');
     }
@@ -54,6 +54,11 @@ class Database
     public function query(string $query, string $types = '', array $params = []): array|bool
     {
         $stmt = $this->connector->prepare($query);
+        if (!$stmt) {
+            exit('Prepare failed: ' . $this->connector->error . ' | SQL: ' . $query);
+        }
+
+
         if ($params) {
             $stmt->bind_param($types, ...$params);
         }
