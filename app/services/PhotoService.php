@@ -22,7 +22,7 @@ class PhotoService {
         if (!in_array($file['type'], PHOTO_AVAILABLE_TYPES, true)){
             return FILE_UPLOAD_ERR[10];
         }
-
+        //dulicate file do
 // 2. Перевірка розміру вручну
         if ($file['size'] > PHOTO_MAX_FILE_SIZE) {
             return FILE_UPLOAD_ERR[2];
