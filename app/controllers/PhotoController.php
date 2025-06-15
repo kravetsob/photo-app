@@ -40,13 +40,21 @@ class PhotoController
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            $this->photoService->upload($_FILES['image']);
-            //TODO повернутися на завантажене зображення
-            Route::redirect(Route::url('photo'));
+            $error = $this->photoService->upload($_FILES['image']);
+            if ($error){
+            $this->view->render('index_upload', [
+                'title' => 'Upload',
+                'error' => $error
+            ]);
+            return;
+            } else {
+                Route::redirect(Route::url('photo'));
+            }
         }
 
         $this->view->render('index_upload', [
             'title' => 'Upload',
+            'error' => null,
         ]);
     }
 }
