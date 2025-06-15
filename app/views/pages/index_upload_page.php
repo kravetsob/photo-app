@@ -3,7 +3,7 @@
     <input type="file" name="image" id="images">
     <input type="submit" value="Завантажити">
 
-    <div class="errors">
-        <p>Помилки</p>
-    </div>
+    <?php if (!empty($error)):?>
+        <p>Помилка: <?= ($error) ?></p>
+    <?php endif; ?>
 </form>
