@@ -1,112 +1,144 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 body {
+    background: #f4f6f8;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-header, main, footer {
-    width: 70%;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex: 1;
+    width: 100%;
 }
 footer {
+    width: 100%;
     text-align: center;
+    padding: 20px;
+    margin-top: 10px;
+    background-color: #e0e0e0;
 }
 .photo {
-    width: 380px;
-    height: 380px;
-    margin: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    text-align: center;
-}
-.photo > img {
-    width: 350px;
-    height: 350px;
-}
-.id{
-    display: none;
-    height: 0;
-}
-ul {
+    width: 360px;
+    height: 360px;
+    background: #ffffff;
+    border-radius: 12px;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
-li {
-    list-style-type: none;
-}
-li > a {
-    text-decoration: none;
-    color: #000000;
-    text-align: center;
+.photo img {
+    width: 100%;
+    height: 100%;
 }
 .likes {
-    width: 380px;
-    margin-bottom: 20px;
+    width: 336px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
-    background-color: #ffffff;
-    height: 40px;
-}
-.likes form {
-    margin: 0;
+    color: #333333;
+    margin: 0 auto 20px;
 }
 .likes input[type="submit"] {
-    background: none;
     border: none;
-    color: #3498db;
-    font-size: 14px;
+    background: none;
+    font-size: 20px;
+    color: #e74c3c;
     cursor: pointer;
-    padding: 0;
 }
 .add-photo {
     width: 60px;
     height: 60px;
-    position: sticky;
-    align-self: flex-end;
-    bottom: 20px;
+    position: fixed;
+    bottom: 70px;
+    right: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid #cccccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    z-index: 1000;
 }
 .add-photo a {
-    color: #000000;
+    font-size: 36px;
+    color: #313131;
     text-decoration: none;
-    font-size: 50px;
     font-weight: bold;
-    text-align: center;
+    display: block;
 }
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    flex-wrap: wrap;
 }
 .pagination a {
-    color: black;
-    padding: 8px 16px;
+    color: #333333;
+    padding: 8px 14px;
+    margin: 4px;
+    border: 1px solid #999999;
+    border-radius: 6px;
     text-decoration: none;
-    border: 1px solid #000000;
-    margin: 2px;
 }
-.active {
-    background-color: #97b8ff;
+.pagination a.active {
+    background-color: #606060;
+    color: #ffffff;
 }
-form {
-    max-width: 400px;
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 26px;
+    margin: 0;
+}
+header nav {
+    width: 336px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 20px auto;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+nav li {
+    display: inline;
+}
+nav a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+.logo {
+    height: 50px;
+}
+.upload {
+    max-width: 336px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #cccccc;
-    border-radius: 6px;
-    background-color: #f9f9f9;
     font-family: Arial, sans-serif;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: #ffffff;
 }
 label {
     display: block;
@@ -117,15 +149,15 @@ input[type="file"] {
     margin-bottom: 15px;
 }
 .upload input[type="submit"] {
-    padding: 8px 16px;
-    background-color: #3498db;
+    padding: 8px 10px;
+    background-color: #606060;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 input[type="submit"]:hover {
-    background-color: #2980b9;
+    background-color: #313131;
 }
 .errors {
     margin-top: 15px;
