@@ -1,12 +1,12 @@
 <?php foreach ($photos as $photo):?>
-    <div class="photo" id="photo<?= $photo['id'] ?>">
+    <div class="photo">
         <div class="id"><?= $photo['id']?></div>
-        <img src="<?= PHOTO_UPLOAD_URL . $photo['name']?>" alt="<?= $photo['name']?>">
+        <img src="/storage/<?= $photo['name'] ?>" alt="img_name">
     </div>
 
     <div class="likes">
         <div><?= $photo['likes']?></div>
-        <form action="<?= \app\core\Route::url('like', 'like') ?>#photo<?= $photo['id']?>" method="post">
+        <form action="<?=\app\core\Route::url('like', 'like')?>" method="post">
             <input type="hidden" name="imageId" value="<?= $photo['id']?>">
             <input type="submit" value="Like">
         </form>
