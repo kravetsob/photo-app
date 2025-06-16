@@ -16,7 +16,7 @@
 <div class="add-photo"><a href="<?= \app\core\Route::url('photo', 'upload')?>">+</a></div>
 
 <div class="pagination">
-    <?php if ($prevPage > 0): ?>
+    <?php if ($prevPage !== null): ?>
         <a href="<?= \app\core\Route::url('photo', 'index') ?>page=<?= $prevPage ?>">&laquo;</a>
     <?php endif; ?>
 
@@ -27,7 +27,7 @@
         </a>
     <?php endfor; ?>
 
-    <?php if ($nextPage <= $pageCount): ?>
+    <?php if ($nextPage !== null): ?>
         <a href="<?= \app\core\Route::url('photo', 'index') ?>page=<?= $nextPage ?>">&raquo;</a>
     <?php endif; ?>
 </div>
