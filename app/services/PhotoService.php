@@ -23,15 +23,15 @@ class PhotoService {
     /**
      * Uploads an image file to the server and saves its name to the database
      * @param array $file
-     * @return void
+     * @return string
      */
     public function upload(array $file)
     {
         if ($file['size'] === 0) {
-            return FILE_UPLOAD_ERR[9];
+            return FILE_UPLOAD_ERR[4];
         }
         if (!in_array($file['type'], PHOTO_AVAILABLE_TYPES, true)){
-            return FILE_UPLOAD_ERR[10];
+            return FILE_UPLOAD_ERR[5];
         }
 
         if ($file['size'] > PHOTO_MAX_FILE_SIZE) {
