@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use app\core\Database;
-
 class PhotoModel extends BaseModel
 {
     /**
