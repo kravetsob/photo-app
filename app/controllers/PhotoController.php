@@ -66,7 +66,17 @@ class PhotoController
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            $this->photoService->upload($_FILES['image']);
+            $result = $this->photoService->upload($_FILES['image']);
+
+            if (is_string($result)) {
+                // Error - back to upload form
+                $this->view->render('index_upload', [
+                    'title' => 'Upload',
+                    'error' => $result,
+                ]);
+                return;
+            }
+
             $photoId = $this->photoModel->lastId();
 
             $rowCount = $this->photoModel->count();
