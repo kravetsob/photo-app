@@ -7,6 +7,7 @@ use app\core\Route;
 use app\models\PhotoModel;
 use app\services\PhotoService;
 
+
 class PhotoController
 {
     /**
@@ -66,8 +67,12 @@ class PhotoController
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $this->photoService->upload($_FILES['image']);
-            //TODO повернутися на завантажене зображення
-            Route::redirect(Route::url('photo'));
+
+            $photoId = $this->photoModel->lastId();
+            $rowCount = $this->photoModel->count();
+            $pageCount = ceil($rowCount / IMG_LIMIT);
+
+            Route::redirect(Route::url('photo', 'index') . 'page=' . $pageCount . '#photo' . $photoId);
         }
 
         $this->view->render('index_upload', [
