@@ -1,33 +1,29 @@
 <?php
 
 namespace app\core;
-use app\models\PhotoModel;
 
 
 class Page
 {
     protected int $current;
     protected int $all;
-    protected PhotoModel $PhotoModel;
-    public function __construct()
+    public function __construct($photosAmount)
     {
-        $this->PhotoModel = new PhotoModel();
         $this->current = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-        $this->all = $this->all();
+        $this->all = $this->all($photosAmount);
     }
 
     /**
      * Calculates total pages
      * @return float|int
      */
-    protected function all(): int
+    protected function all($photosAmount): int
     {
-        $imgQuantity = $this->PhotoModel->count();
-        if ($imgQuantity < 1) {
+        if ($photosAmount < 1) {
             return 1;
         }
 
-        return (int) ceil($imgQuantity / IMG_LIMIT);
+        return (int) ceil($photosAmount / IMG_LIMIT);
     }
 
     /**
