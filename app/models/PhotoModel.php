@@ -47,7 +47,7 @@ class PhotoModel extends BaseModel
      * @param string $name
      * @return void
      */
-    public function upload(string $name): int
+    public function upload(string $name): void
     {
         $result = $this->db->query(
             'INSERT INTO photos (name) VALUES (?)',
@@ -57,7 +57,5 @@ class PhotoModel extends BaseModel
         if ($result === false) {
             exit('ошибка збереження фото');
         }
-        return $this->db->insert_id;
     }
-
 }
