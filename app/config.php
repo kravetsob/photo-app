@@ -1,5 +1,5 @@
 <?php
-const SITE_NAME = 'Site Name';
+const SITE_NAME = 'PhotoGraphy';
 // const PHOTO_UPLOAD_DIR = __DIR__ . '/../public/storage/';
 const PHOTO_UPLOAD_DIR = 'storage/';
 const PHOTO_UPLOAD_URL = 'storage/';
