@@ -15,15 +15,13 @@ class PhotoService {
 
     public function upload(array $file)
     {
-        //TODO Validation
         if ($file['size'] === 0) {
             return FILE_UPLOAD_ERR[9];
         }
         if (!in_array($file['type'], PHOTO_AVAILABLE_TYPES, true)){
             return FILE_UPLOAD_ERR[10];
         }
-        //dulicate file do
-// 2. Перевірка розміру вручну
+
         if ($file['size'] > PHOTO_MAX_FILE_SIZE) {
             return FILE_UPLOAD_ERR[2];
         }
