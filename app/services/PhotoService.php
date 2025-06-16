@@ -20,6 +20,10 @@ class PhotoService
         $this->photoModel = new PhotoModel();
     }
 
+    /**
+     * Check and create directory
+     * @return void
+     */
     protected function checkDir()
     {
         if(!is_dir(PHOTO_UPLOAD_DIR)){
@@ -32,16 +36,17 @@ class PhotoService
      * @param array $file
      * @return void
      */
-    public function upload(array $file)     
+    public function store(array $file): ?string     
     {
         //TODO Validation
 
         //Збереження на диск
         $newName = uniqid() . '_' . basename($file['name']);
-        $path = PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName;
-        move_uploaded_file($file['tmp_name'],  PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName);
+        if(!move_uploaded_file($file['tmp_name'],  PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName)){
+            $newName = null;
+        }
 
-        $this->photoModel->upload($newName);
+        return $newName;
     }
 
 }

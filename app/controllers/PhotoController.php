@@ -3,8 +3,8 @@
 namespace app\controllers;
 use app\core\View;
 use app\core\Route;
-//TODO Винести функціонал Page з Index і прибрати PhotoModel
 use app\models\PhotoModel;
+use app\core\Page;
 use app\services\PhotoService;
 
 class PhotoController
@@ -23,6 +23,7 @@ class PhotoController
      * @var PhotoService
      */
     protected $photoService;
+    protected Page $page;
 
     /**
      * PhotoController constructor
@@ -32,6 +33,7 @@ class PhotoController
         $this->view = new View();
         $this->photoModel = new PhotoModel();
         $this->photoService = new PhotoService();
+        $this->page = new Page();
     }
 
     /**
@@ -40,13 +42,12 @@ class PhotoController
      */
     public function index()
     {
-        $page = ($_GET['page']) ?? 1;
-        $nextPage = $page + 1;
-        $prevPage = $page - 1;
-        $rowCount = $this->photoModel->count();
-        $pageCount = ceil($rowCount/ IMG_LIMIT);
-
+        $page = $this->page->getCurrent();
+        $nextPage = $this->page->next();
+        $prevPage = $this->page->prev();
+        $pageCount = $this->page->getAll();
         $photos = $this->photoModel->all($page);
+
         $this->view->render('index_index', [
             'title' => 'Home',
             'photos' => $photos,
@@ -63,9 +64,11 @@ class PhotoController
      */
     public function upload(): void
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
-            $this->photoService->upload($_FILES['image']);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $fileName = $this->photoService->store($_FILES['image']);
+            if ($fileName !== null) {
+                $this->photoModel->upload($fileName);
+            }
             //TODO повернутися на завантажене зображення
             Route::redirect(Route::url('photo'));
         }

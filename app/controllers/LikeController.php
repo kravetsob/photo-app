@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\core\View;
 use app\core\Route;
 use app\models\LikeModel;
+use app\core\Page;
 
 class LikeController
 {
