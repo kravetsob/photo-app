@@ -33,11 +33,21 @@ class PhotoModel extends BaseModel
     }
 
     /**
+     * Returns the remaining inserted identifier for persistent residence with the database.
+     * @return int
+     */
+    public function lastId(): int
+    {
+        $result = $this->db->query('SELECT LAST_INSERT_ID() as id');
+        return (int)$result[0]['id'];
+    }
+
+    /**
      * Saves the path to the photo
      * @param string $name
      * @return void
      */
-    public function upload(string $name): void
+    public function upload(string $name): int
     {
         $result = $this->db->query(
             'INSERT INTO photos (name) VALUES (?)',
@@ -47,6 +57,7 @@ class PhotoModel extends BaseModel
         if ($result === false) {
             exit('ошибка збереження фото');
         }
+        return $this->db->insert_id;
     }
 
 }
