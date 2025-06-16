@@ -39,7 +39,7 @@ class PhotoController
      * Displays the homepage with a paginated list of photos.
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $page = ($_GET['page']) ?? 1;
         $nextPage = $page + 1;
@@ -67,8 +67,8 @@ class PhotoController
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $this->photoService->upload($_FILES['image']);
-
             $photoId = $this->photoModel->lastId();
+
             $rowCount = $this->photoModel->count();
             $pageCount = ceil($rowCount / IMG_LIMIT);
 
