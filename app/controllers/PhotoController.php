@@ -69,18 +69,15 @@ class PhotoController
     public function upload(): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $result = $this->photoService->upload($_FILES['image']);
-
-            if (is_string($result)) {
+            $fileName = $this->photoService->store($_FILES['image']);
+            if (is_string($fileName)) {
                 // Error - back to upload form
                 $this->view->render('index_upload', [
                     'title' => 'Upload',
-                    'error' => $result,
+                    'error' => $fileName,
                 ]);
                 return;
             }
-
-            $fileName = $this->photoService->store($_FILES['image']);
             if ($fileName !== null) {
                 $this->photoModel->upload($fileName);
             }
