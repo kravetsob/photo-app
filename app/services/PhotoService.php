@@ -13,6 +13,18 @@ class PhotoService {
         $this->photoModel = new PhotoModel();
     }
 
+    protected function checkDir()
+    {
+        if(!is_dir(PHOTO_UPLOAD_DIR)){
+            mkdir(PHOTO_UPLOAD_DIR, 0777, true);
+        }
+    }
+
+    /**
+     * Uploads an image file to the server and saves its name to the database
+     * @param array $file
+     * @return void
+     */
     public function upload(array $file)
     {
         if ($file['size'] === 0) {

@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use app\core\Database;
-
 class PhotoModel extends BaseModel
 {
     /**
@@ -16,7 +14,7 @@ class PhotoModel extends BaseModel
         $offset = ($page - 1) * IMG_LIMIT;
         $result = $this->db->query('SELECT id, name, likes FROM photos ORDER BY id LIMIT ? OFFSET ?', 'ii', [IMG_LIMIT, $offset]);
         if ($result === false) {
-            exit('ошибка получения фото');
+            exit('помилка отримання фото');
         }
         return $result;
     }
@@ -35,11 +33,21 @@ class PhotoModel extends BaseModel
     }
 
     /**
+     * Returns the remaining inserted identifier for persistent residence with the database.
+     * @return int
+     */
+    public function lastId(): int
+    {
+        $result = $this->db->query('SELECT LAST_INSERT_ID() as id');
+        return (int)$result[0]['id'];
+    }
+
+    /**
      * Saves the path to the photo
      * @param string $name
      * @return void
      */
-    public function upload(string $name): void
+    public function upload(string $name): int
     {
         $result = $this->db->query(
             'INSERT INTO photos (name) VALUES (?)',
@@ -47,8 +55,9 @@ class PhotoModel extends BaseModel
             [$name]
         );
         if ($result === false) {
-            exit('ошибка сохранения фото');
+            exit('ошибка збереження фото');
         }
+        return $this->db->insert_id;
     }
 
 }

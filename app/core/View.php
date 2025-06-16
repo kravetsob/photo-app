@@ -6,9 +6,13 @@ namespace app\core;
 
 class View
 {
+    /**
+     * @var string
+     */
     protected $template = 'default';
 
     /**
+     * View constructor
      * @param string|null $template
      */
     public function __construct(string $template = null)
@@ -19,7 +23,7 @@ class View
     }
 
     /**
-     *
+     * Rendering
      * @param string $viewName
      * @param array $params
      * @return void
@@ -31,6 +35,7 @@ class View
     }
 
     /**
+     * Returns the base path to the views directory
      * @return string
      */
     protected function getViewsDir() : string
@@ -39,6 +44,7 @@ class View
     }
 
     /**
+     * Returns the full path to the layout template file
      * @return string
      */
     protected function getTemplatePath() : string
@@ -47,6 +53,7 @@ class View
     }
 
     /**
+     * Returns the full path to a specific view file
      * @param string $view
      * @return string
      */

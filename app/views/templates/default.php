@@ -12,13 +12,15 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="<?= \app\core\Route::url()?>">Home</a></li>
+                    <li><a href="<?= \app\core\Route::url()?>"><img src="images/logo.png" alt="logo" class="logo"></a></li>
                 </ul>
             </nav>
         </header>
         <main>
-            <?php include_once $this->getViewPath($viewName);?>
+            <div class="content">
+                <?php include_once $this->getViewPath($viewName);?>
+            </div>
         </main>
-        <footer>JanTeam &copy;2025</footer>
+        <footer><div class="footer">JanTeam &copy;2025</div></footer>
     </body>
 </html>

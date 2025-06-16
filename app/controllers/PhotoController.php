@@ -7,17 +7,39 @@ use app\core\Route;
 use app\models\PhotoModel;
 use app\services\PhotoService;
 
+
 class PhotoController
 {
+    /**
+     * @var View
+     */
     protected $view;
+
+    /**
+     * @var PhotoModel
+     */
     protected $photoModel;
+
+    /**
+     * @var PhotoService
+     */
     protected $photoService;
-    public function __construct(){
+
+    /**
+     * PhotoController constructor
+     */
+    public function __construct()
+    {
         $this->view = new View();
         $this->photoModel = new PhotoModel();
         $this->photoService = new PhotoService();
     }
-    public function index()
+
+    /**
+     * Displays the homepage with a paginated list of photos.
+     * @return void
+     */
+    public function index(): void
     {
         $page = ($_GET['page']) ?? 1;
         $nextPage = $page + 1;
@@ -36,25 +58,25 @@ class PhotoController
         ]);
     }
 
+    /**
+     * Handles image upload requests.
+     * @return void
+     */
     public function upload(): void
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            $error = $this->photoService->upload($_FILES['image']);
-            if ($error){
-            $this->view->render('index_upload', [
-                'title' => 'Upload',
-                'error' => $error
-            ]);
-            return;
-            } else {
-                Route::redirect(Route::url('photo'));
-            }
+            $this->photoService->upload($_FILES['image']);
+            $photoId = $this->photoModel->lastId();
+
+            $rowCount = $this->photoModel->count();
+            $pageCount = ceil($rowCount / IMG_LIMIT);
+
+            Route::redirect(Route::url('photo', 'index') . 'page=' . $pageCount . '#photo' . $photoId);
         }
 
         $this->view->render('index_upload', [
             'title' => 'Upload',
-            'error' => null,
         ]);
     }
 }

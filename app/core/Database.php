@@ -34,11 +34,19 @@ class Database
         );
     }
 
+    /**
+     * Prevents cloning of the singleton instance
+     * @return void
+     */
     private function __clone(): void
     {
     }
 
-    public function __wakeup(): void
+    /**
+     * Prevents unserializing of the singleton instance
+     * @return never
+     */
+    public function __wakeup(): never
     {
         exit('Singleton');
     }
@@ -54,11 +62,6 @@ class Database
     public function query(string $query, string $types = '', array $params = []): array|bool
     {
         $stmt = $this->connector->prepare($query);
-        if (!$stmt) {
-            exit('Prepare failed: ' . $this->connector->error . ' | SQL: ' . $query);
-        }
-
-
         if ($params) {
             $stmt->bind_param($types, ...$params);
         }

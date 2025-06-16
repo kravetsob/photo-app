@@ -1,14 +1,14 @@
 <?php foreach ($photos as $photo):?>
-    <div class="photo">
-        <div class="id"><?= $photo['id']?></div>
-        <img src="/storage/<?= $photo['name'] ?>" alt="img_name">
+    <div class="photo" id="photo<?= $photo['id'] ?>">
+        <img src="<?= PHOTO_UPLOAD_URL . $photo['name']?>" alt="<?= $photo['name']?>">
     </div>
 
     <div class="likes">
-        <div><?= $photo['likes']?></div>
-        <form action="<?=\app\core\Route::url('like', 'like')?>" method="post">
+        <form action="<?= \app\core\Route::url('like', 'like') ?>#photo<?= $photo['id']?>" method="post">
             <input type="hidden" name="imageId" value="<?= $photo['id']?>">
-            <input type="submit" value="Like">
+            <div>
+                <button type="submit" style="color: <?=((int)$photo['likes'] > 0) ? 'red' : 'gray'?>">❤</button><?= $photo['likes']?>
+            </div>
         </form>
     </div>
 <?php endforeach;?>
