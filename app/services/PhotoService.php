@@ -2,17 +2,28 @@
 
 namespace app\services;
 
-use app\core\Route;
 use app\models\PhotoModel;
 
-class PhotoService {
+class PhotoService
+{
+    /**
+     * @var PhotoModel
+     */
     protected PhotoModel $photoModel;
 
+    /**
+     * PhotoService constructor
+     */
     public function __construct()
     {
+        $this->checkDir();
         $this->photoModel = new PhotoModel();
     }
 
+    /**
+     * Check and create directory
+     * @return void
+     */
     protected function checkDir()
     {
         if(!is_dir(PHOTO_UPLOAD_DIR)){
@@ -25,7 +36,7 @@ class PhotoService {
      * @param array $file
      * @return string
      */
-    public function upload(array $file)
+    public function store(array $file): ?string
     {
         if ($file['size'] === 0) {
             return FILE_UPLOAD_ERR[4];
@@ -40,11 +51,13 @@ class PhotoService {
 
         //Збереження на диск
         $newName = uniqid() . '_' . basename($file['name']);
-        move_uploaded_file($file['tmp_name'],  PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName);
+        if(!move_uploaded_file($file['tmp_name'],  PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName)){
+            $newName = null;
+        }
 
         $this->photoModel->upload($newName);
 
-        return null;
+        return $newName;
     }
 
 }

@@ -5,6 +5,7 @@ use app\core\View;
 use app\core\Route;
 //TODO Винести функціонал Page з Index і прибрати PhotoModel
 use app\models\PhotoModel;
+use app\core\Page;
 use app\services\PhotoService;
 
 
@@ -24,7 +25,8 @@ class PhotoController
      * @var PhotoService
      */
     protected $photoService;
-
+    protected Page $page;
+    protected int $photosAmount;
     /**
      * PhotoController constructor
      */
@@ -33,6 +35,8 @@ class PhotoController
         $this->view = new View();
         $this->photoModel = new PhotoModel();
         $this->photoService = new PhotoService();
+        $this->photosAmount = $this->photoModel->count();
+        $this->page = new Page($this->photosAmount);
     }
 
     /**
@@ -64,8 +68,7 @@ class PhotoController
      */
     public function upload(): void
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = $this->photoService->upload($_FILES['image']);
 
             if (is_string($result)) {
@@ -77,11 +80,16 @@ class PhotoController
                 return;
             }
 
+            $fileName = $this->photoService->store($_FILES['image']);
+            if ($fileName !== null) {
+                $this->photoModel->upload($fileName);
+            }
+
             $photoId = $this->photoModel->lastId();
-
-            $rowCount = $this->photoModel->count();
-            $pageCount = ceil($rowCount / IMG_LIMIT);
-
+            $pageCount = $this->page->getAll();
+            if ($this->photosAmount % 5 === 0) {
+                $pageCount++;
+            }
             Route::redirect(Route::url('photo', 'index') . 'page=' . $pageCount . '#photo' . $photoId);
         }
 
