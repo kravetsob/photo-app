@@ -3,7 +3,6 @@
 namespace app\controllers;
 use app\core\View;
 use app\core\Route;
-//TODO Винести функціонал Page з Index і прибрати PhotoModel
 use app\models\PhotoModel;
 use app\core\Page;
 use app\services\PhotoService;
@@ -25,8 +24,17 @@ class PhotoController
      * @var PhotoService
      */
     protected $photoService;
+
+    /**
+     * @var Page
+     */
     protected Page $page;
+
+    /**
+     * @var int
+     */
     protected int $photosAmount;
+
     /**
      * PhotoController constructor
      */
@@ -45,13 +53,12 @@ class PhotoController
      */
     public function index(): void
     {
-        $page = ($_GET['page']) ?? 1;
-        $nextPage = $page + 1;
-        $prevPage = $page - 1;
-        $rowCount = $this->photoModel->count();
-        $pageCount = ceil($rowCount/ IMG_LIMIT);
-
+        $page = $this->page->getCurrent();
+        $nextPage = $this->page->next();
+        $prevPage = $this->page->prev();
+        $pageCount = $this->page->getAll();
         $photos = $this->photoModel->all($page);
+
         $this->view->render('index_index', [
             'title' => 'Home',
             'photos' => $photos,
@@ -69,6 +76,7 @@ class PhotoController
     public function upload(): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $fileName = $this->photoService->store($_FILES['image']);
             if (is_string($fileName)) {
                 // Error - back to upload form
@@ -78,6 +86,7 @@ class PhotoController
                 ]);
                 return;
             }
+
             if ($fileName !== null) {
                 $this->photoModel->upload($fileName);
             }
