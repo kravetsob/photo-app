@@ -3,6 +3,7 @@
 namespace app\services;
 
 use app\models\PhotoModel;
+use app\validators\PhotoValidator;
 
 class PhotoService
 {
@@ -12,12 +13,18 @@ class PhotoService
     protected PhotoModel $photoModel;
 
     /**
+     * @var PhotoValidator
+     */
+    protected PhotoValidator $photoValidator;
+
+    /**
      * PhotoService constructor
      */
     public function __construct()
     {
         $this->checkDir();
         $this->photoModel = new PhotoModel();
+        $this->photoValidator = new PhotoValidator();
     }
 
     /**
@@ -36,28 +43,32 @@ class PhotoService
      * @param array $file
      * @return string
      */
-    public function store(array $file): ?string
+    public function store(array $file): array
     {
-        if ($file['size'] === 0) {
-            return FILE_UPLOAD_ERR[4];
-        }
-        if (!in_array($file['type'], PHOTO_AVAILABLE_TYPES, true)){
-            return FILE_UPLOAD_ERR[5];
+        $errors = $this->photoValidator->validate($file);
+
+        //у разі помилки
+        if (!empty($errors)) {
+            return [
+                'success' => false,
+                'errors' => $errors,
+            ];
         }
 
-        if ($file['size'] > PHOTO_MAX_FILE_SIZE) {
-            return FILE_UPLOAD_ERR[2];
-        }
-
-        //Збереження на диск
         $newName = uniqid() . '_' . basename($file['name']);
-        if(!move_uploaded_file($file['tmp_name'],  PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR .$newName)){
-            $newName = null;
+        $destination = PHOTO_UPLOAD_DIR . DIRECTORY_SEPARATOR . $newName;
+
+        if (!move_uploaded_file($file['tmp_name'], $destination)) {
+            return [
+                'success' => false,
+                'errors' => ['Не вдалося зберегти файл.'],
+            ];
         }
 
-        $this->photoModel->upload($newName);
-
-        return null;
+        //у разі успішного завантаження
+        return [
+            'success' => true,
+            'filename' => $newName,
+        ];
     }
-
 }
