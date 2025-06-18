@@ -5,8 +5,7 @@ namespace app\validators;
 class PhotoValidator
 {
     /**
-     * Checks if a file fits the upload conditions.
-     *
+     * Checks file to upload conditions.
      * @param array $file
      * @return array
      */
