@@ -75,34 +75,28 @@ class PhotoController
      */
     public function upload(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = $this->photoService->store($_FILES['image']);
 
             if (!$result['success']) {
-                // якщо є помилки при збереженні файлу
-                $this->view->render('index_upload', [
-                    'title' => 'Upload',
-                    'error' => $result['errors'],
-                ]);
-                return;
+                $errors = $result['errors'];
+            } else {
+                $this->photoModel->upload($result['filename']);
+                $photoId = $this->photoModel->lastId();
+                $pageCount = $this->page->getAll();
+                if ($this->photosAmount % IMG_LIMIT === 0) {
+                    $pageCount++;
+                }
+                Route::redirect(Route::url('photo', 'index') . 'page=' . $pageCount . '#photo' . $photoId);
             }
-
-            // у разі успіху завантажуємо файл до БД
-            $this->photoModel->upload($result['filename']);
-
-            //визначаємо ID фото, щоб повернутися до нього після завантаження
-            $photoId = $this->photoModel->lastId();
-            $pageCount = $this->page->getAll();
-
-            if ($this->photosAmount % IMG_LIMIT === 0) {
-                $pageCount++;
-            }
-
-            Route::redirect(Route::url('photo', 'index') . 'page=' . $pageCount . '#photo' . $photoId);
         }
 
         $this->view->render('index_upload', [
             'title' => 'Upload',
+            'errors' => $errors,
         ]);
     }
+
 }
