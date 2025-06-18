@@ -163,3 +163,9 @@ input[type="submit"]:hover {
     font-weight: bold;
     color: #e74c3c;
 }
+.errors > ul > li{
+    list-style-type: none;
+}
+.errors > ul {
+    padding: 0;
+}
