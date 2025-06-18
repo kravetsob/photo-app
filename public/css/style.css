@@ -160,15 +160,6 @@ input[type="submit"]:hover {
     background-color: #313131;
 }
 .errors {
-    margin-top: 15px;
-    padding: 10px;
-    border: 1px solid #e74c3c;
-    background-color: #fdecea;
-    color: #e74c3c;
-    border-radius: 4px;
-    display: none;
-}
-.errors p {
-    margin: 0;
     font-weight: bold;
+    color: #e74c3c;
 }
